@@ -1,0 +1,57 @@
+import spacy
+nlp = spacy.load('en_core_web_sm')
+
+#Create Simple Document
+doc=nlp(u"The quick brown fox jump over the lazy dog's back.")
+print(doc.text)
+
+#Print the fifth word and associated tags:
+print(doc[4].text, doc[4].pos_, doc[4].tag_, spacy.explain(doc[4].tag_))
+
+print(doc[4].text, doc[4].pos, doc[4].tag)
+
+for token in doc:
+    print(f'{token.text:{10}} {token.pos_:{8}} {token.tag_:{6}} {spacy.explain(token.tag_)}')
+
+#Working with pos tag
+doc=nlp(u'I read books on NLP.')
+r = doc[1]
+print(f'{r.text:{10}} {r.pos_:{8}} {r.tag_:{6}} {spacy.explain(r.tag_)}')
+
+doc=nlp(u'I read a book on NLP.')
+r = doc[1]
+print(f'{r.text:{10}} {r.pos_:{8}} {r.tag_:{6}} {spacy.explain(r.tag_)}')
+
+#Counting pos tag
+doc=nlp(u"The quick brown fox jump over the lazy dog's back.")
+
+Pos_count=doc.count_by(spacy.attrs.POS)
+Pos_count
+
+doc.vocab[90].text
+
+doc.vocab[84].text
+
+doc.vocab[92].text
+
+doc.vocab[85].text
+
+doc.vocab[94].text
+
+doc.vocab[97].text
+
+for k,v in sorted(Pos_count.items()):
+    print(f'{k}.{doc.vocab[k].text:{5}}:{v}')
+
+#Count the different fine-gained tags
+Tag_count=doc.count_by(spacy.attrs.TAG)
+Tag_count
+for k,v in sorted(Tag_count.items()):
+    print(f'{k}.{doc.vocab[k].text:{5}}:{v}')
+
+#count the difference dependencies
+Dep_count=doc.count_by(spacy.attrs.DEP)
+Dep_count
+for k,v in sorted(Dep_count.items()):
+    print(f'{k}.{doc.vocab[k].text:{5}}:{v}')
+
